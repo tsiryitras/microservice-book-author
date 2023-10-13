@@ -1,0 +1,44 @@
+version: "3"
+services:
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:8000"
+    env_file:
+      - ./api-gateway/.env
+    depends_on:
+      - author-service
+      - book-service
+
+  author-service:
+    build: ./author-service
+    env_file:
+      - ./author-service/.env
+    depends_on:
+      - mongodb-author
+
+  book-service:
+    build: ./book-service
+    env_file:
+      - ./book-service/.env
+    depends_on:
+      - mongodb-book
+
+  mongodb-book:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  mongodb-author:
+    image: mongo
+    ports:
+      - "27018:27017"
+
+  rabbitmq:
+    image: "rabbitmq:management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
