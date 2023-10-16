@@ -1,0 +1,9 @@
+docker rm microservices-2_rabbitmq_1
+
+docker rm microservices-2_mongodb-author_1
+docker rm microservices-2_mongodb-book_1
+
+docker rm microservices-2_book-service_1
+docker rm microservices-2_author-service_1
+
+docker rm microservices-2_api-gateway_1

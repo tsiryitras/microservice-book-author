@@ -10,7 +10,7 @@ import { BookService } from './book-service.service';
         name: 'BOOK_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://localhost:5672'],
+          urls: ['amqp://rabbitmq:5672'],
           queue: 'book_service_queue',
         },
       },

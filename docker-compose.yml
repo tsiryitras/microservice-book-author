@@ -3,7 +3,7 @@ services:
   api-gateway:
     build: ./api-gateway
     ports:
-      - "3000:8000"
+      - "3000:3000"
     env_file:
       - ./api-gateway/.env
     depends_on:

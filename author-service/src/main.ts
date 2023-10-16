@@ -8,7 +8,7 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 const microserviceOptions: MicroserviceOptions = {
   transport: Transport.RMQ,
   options: {
-    urls: ['amqp://localhost:5672'],
+    urls: ['amqp://rabbitmq:5672'],
     queue: 'author_service_queue',
   },
 };
