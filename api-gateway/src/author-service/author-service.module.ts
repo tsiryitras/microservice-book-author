@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthorService } from './author-service.service';
 import { AuthorServiceController } from './author-service.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-
+import conf from '../config.constant';
 @Module({
   imports: [
     ClientsModule.register([
@@ -10,7 +10,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         name: 'AUTHOR_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://rabbitmq:5672'],
+          urls: [`${conf().rabbitmq}`],
           queue: 'author_service_queue',
         },
       },

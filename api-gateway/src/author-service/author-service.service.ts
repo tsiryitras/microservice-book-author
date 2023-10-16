@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { map } from 'rxjs';
+import { first } from 'rxjs';
 import { UpdateAuthorDto } from './dto/updateAuthor.dto';
 
 @Injectable()
@@ -9,42 +9,53 @@ export class AuthorService {
     @Inject('AUTHOR_SERVICE') private readonly clientAuthorService: ClientProxy,
   ) {}
 
-  allAuthor() {
+  async allAuthor() {
     const pattern = { cmd: 'all-author' };
-    return this.clientAuthorService
-      .send<string>(pattern, {})
-      .pipe(map((data: string) => ({ data })));
+    const author = await this.clientAuthorService
+      .send(pattern, {})
+      .pipe(first())
+      .toPromise();
+    return { data: author };
   }
 
-  createAuthor(payload) {
+  async createAuthor(payload) {
     const pattern = { cmd: 'create-author' };
-    return this.clientAuthorService
-      .send<string>(pattern, payload)
-      .pipe(map((data: string) => ({ data })));
+    const author = await this.clientAuthorService
+      .send(pattern, payload)
+      .pipe(first())
+      .toPromise();
+    return { data: author };
   }
 
-  findAuthor(payload) {
+  async findAuthor(payload) {
     const pattern = { cmd: 'find-author' };
     console.log(payload);
 
-    return this.clientAuthorService
-      .send<string>(pattern, payload)
-      .pipe(map((data: string) => ({ data })));
+    const author = await this.clientAuthorService
+      .send(pattern, payload)
+      .pipe(first())
+      .toPromise();
+
+    return { data: author };
   }
 
-  updateAuthor(payload: UpdateAuthorDto) {
+  async updateAuthor(payload: UpdateAuthorDto) {
     const pattern = { cmd: 'update-author' };
 
-    return this.clientAuthorService
-      .send<string>(pattern, payload)
-      .pipe(map((data: string) => ({ data })));
+    const author = await this.clientAuthorService
+      .send(pattern, payload)
+      .pipe(first())
+      .toPromise();
+    return { data: author };
   }
 
-  deleteAuthor(payload) {
+  async deleteAuthor(payload) {
     const pattern = { cmd: 'delete-author' };
 
-    return this.clientAuthorService
-      .send<string>(pattern, payload)
-      .pipe(map((isDeleted: string) => ({ isDeleted })));
+    const author = await this.clientAuthorService
+      .send(pattern, payload)
+      .pipe(first())
+      .toPromise();
+    return { data: author };
   }
 }

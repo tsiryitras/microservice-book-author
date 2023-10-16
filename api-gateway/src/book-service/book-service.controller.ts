@@ -16,7 +16,9 @@ export class BookServiceController {
 
   @Get()
   allBook() {
-    return this.bookService.allBook();
+    const books = this.bookService.allBook();
+
+    return books;
   }
 
   @Post()

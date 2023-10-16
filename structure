@@ -1,20 +1,20 @@
 -/microservice
--/api-gateway
--/dist
--/src
--Dockerfile
--package.json
--.env
--/book-service
--/dist
--/src
--Dockerfile
--package.json
--.env
--/author-service
--/dist
--/src
--Dockerfile
--package.json
--.env
--docker-compose.yml
+  -/api-gateway
+    -/dist
+    -/src
+    -Dockerfile
+    -package.json
+    -.env
+  -/book-service
+    -/dist
+    -/src
+    -Dockerfile
+    -package.json
+    -.env
+  -/author-service
+    -/dist
+    -/src
+    -Dockerfile
+    -package.json
+    -.env
+  -docker-compose.yml
