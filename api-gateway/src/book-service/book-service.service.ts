@@ -9,6 +9,7 @@ import { GetBookDto } from './dto/getBook.dto';
 export class BookService {
   constructor(
     @Inject('BOOK_SERVICE') private readonly clientBookService: ClientProxy,
+    @Inject('AUTHOR_SERVICE') private readonly clientAuthorService: ClientProxy,
   ) {}
 
   async allBook() {
@@ -19,7 +20,14 @@ export class BookService {
       .pipe(first())
       .toPromise();
 
-    return { data: books };
+      const booksWithAuthors = await Promise.all(
+        books.map(async (book) => {
+          const author = await this.findAuthor(book.author);
+          return { ...book, author };
+        })
+      );
+
+    return { data: booksWithAuthors };
   }
 
   async createBook(payload) {
@@ -60,5 +68,16 @@ export class BookService {
       .pipe(first())
       .toPromise();
     return { deleted: book };
+  }
+
+  async findAuthor(payload) {
+    const pattern = { cmd: 'find-author' };
+    console.log(payload);
+    const author = await this.clientAuthorService
+      .send(pattern, payload)
+      .pipe(first())
+      .toPromise();
+
+    return  author ;
   }
 }

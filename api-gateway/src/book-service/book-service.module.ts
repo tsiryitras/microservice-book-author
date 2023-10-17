@@ -14,6 +14,14 @@ import conf from '../config.constant';
           queue: 'book_service_queue',
         },
       },
+      {
+        name: 'AUTHOR_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: [`${conf().rabbitmq}`],
+          queue: 'author_service_queue',
+        },
+      },
     ]),
   ],
   controllers: [BookServiceController],

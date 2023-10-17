@@ -15,7 +15,7 @@ export class Book extends Document {
   @Prop({ type: Number, required: true })
   price: number;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Author' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, required:true})
   author: string;
 }
 
